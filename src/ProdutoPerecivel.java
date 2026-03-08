@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ProdutoPerecivel extends Produto{
     private static final double DESCONTO = 0.25;
@@ -43,5 +44,16 @@ public class ProdutoPerecivel extends Produto{
 
         // retorna o texto da mãe (Produto) com a validade
         return String.format("%s (Validade: %s)", infoBase, dataDeValidade.format(fmt));
+    }
+
+    /**
+     * Gera uma linha de texto a partir dos dados do produto. Preço e margem com 2 casas decimais.
+     * Data de validade no formato dd/mm/aaaa.
+     * @return Uma string no formato "2; descrição;preçoDeCusto;margemDeLucro;dataDeValidade"
+     */
+    @Override
+    public String gerarDadosTexto() {
+        return String.format("2;%s;%.2f;%.2f;%s", getDescricao(), precoCusto, margemLucro,
+                dataDeValidade.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }
